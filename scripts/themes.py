@@ -107,6 +107,7 @@ class Review:
     source: str
     hits: Dict[str, List[Tuple[str, str]]] = field(default_factory=dict)
     negative: bool = False
+    rating_unreadable: bool = False   # a rating cell had text but no number
 
 
 @dataclass
@@ -212,9 +213,12 @@ def load_reviews(paths, overrides=None) -> List[Review]:
             text = clean_text(raw)
             if not text:
                 continue
+            rating_cell = (row.get(cols.get("rating", ""), "") or "").strip()
+            rating = parse_rating(rating_cell)
             reviews.append(Review(
                 raw=raw, text=text,
-                rating=parse_rating(row.get(cols.get("rating", ""), "") or ""),
+                rating=rating,
+                rating_unreadable=bool(rating_cell) and rating is None,
                 day=parse_date(row.get(cols.get("date", ""), "") or ""),
                 source=(row.get(cols.get("source", ""), "") or "").strip(),
             ))
@@ -540,7 +544,7 @@ def describe_quote_source(review: Review) -> str:
 
 
 def build_report(reviews, removed, stats, negatives, untagged, ref, windows,
-                 recent_days, min_trend, files, notes) -> str:
+                 recent_days, min_trend, files, notes, untagged_label="untagged.csv") -> str:
     n = recent_days
     out: List[str] = []
     eligible = [s for s in stats if s.count >= MIN_FIX_COUNT]
@@ -559,7 +563,8 @@ def build_report(reviews, removed, stats, negatives, untagged, ref, windows,
         out.append("- Dates: %s to %s (%d reviews have no date)" % (
             min(r.day for r in dated), ref, len(reviews) - len(dated)))
     out.append("- Negative reviews: %d" % len(negatives))
-    out.append("- Negative reviews that matched no theme: %d (see untagged.csv)" % len(untagged))
+    out.append("- Negative reviews that matched no theme: %d (see %s)" % (
+        len(untagged), untagged_label))
     for note in notes:
         out.append("- Note: %s" % note)
 
@@ -625,6 +630,17 @@ def write_untagged(path: Path, untagged: List[Review]) -> None:
 
 # ----------------------------------------------------------------------- cli
 
+def path_label(path: Path) -> str:
+    """Name a path the way the user can find it: relative to the current folder,
+    else relative to the repo (the demo), else just the file name."""
+    for base in (Path.cwd(), ROOT):
+        try:
+            return path.resolve().relative_to(base.resolve()).as_posix()
+        except ValueError:
+            continue
+    return path.name
+
+
 def run(args) -> Tuple[str, str]:
     """Run the whole pipeline. Returns (report text, path of themes file used)."""
     overrides = {"text": args.text_col, "rating": args.rating_col,
@@ -634,14 +650,19 @@ def run(args) -> Tuple[str, str]:
         raise ValueError("No reviews found in the input files.")
     notes = [n for n in [scale_ratings(reviews)] if n]
     reviews, removed = dedupe(reviews)
+    unreadable = sum(1 for r in reviews if r.rating_unreadable)
+    if unreadable:
+        notes.append("%d rating%s could not be read and %s treated as missing." % (
+            unreadable, "" if unreadable == 1 else "s", "was" if unreadable == 1 else "were"))
     themes_path = Path(args.themes)
     themes = load_themes(themes_path)
     stats, negatives, untagged, ref, windows = analyze(
         reviews, themes, args.recent_days, args.min_trend_count)
     write_untagged(Path(args.untagged), untagged)
+    label = path_label(Path(args.untagged))
     report = build_report(reviews, removed, stats, negatives, untagged, ref, windows,
                           args.recent_days, args.min_trend_count,
-                          [Path(f).name for f in args.files], notes)
+                          [Path(f).name for f in args.files], notes, label)
     return report, str(themes_path)
 
 
@@ -649,8 +670,8 @@ def parse_args(argv):
     p = argparse.ArgumentParser(description="Find recurring complaints in review CSVs.")
     p.add_argument("files", nargs="*", help="one or more review CSV files")
     p.add_argument("--themes", help="theme dictionary (default: ./themes.json, else the template)")
-    p.add_argument("--out", help="report path (default: out/report.md)")
-    p.add_argument("--untagged", help="untagged reviews CSV (default: out/untagged.csv)")
+    p.add_argument("--out", help="report path, relative to the current folder (default: out/report.md)")
+    p.add_argument("--untagged", help="untagged reviews CSV (default: untagged.csv next to the report)")
     p.add_argument("--recent-days", type=int, default=30, help="length of the recent period")
     p.add_argument("--min-trend-count", type=int, default=MIN_TREND_COUNT,
                    help="reviews needed in a period before calling a trend")
@@ -672,9 +693,14 @@ def parse_args(argv):
         p.error("give at least one CSV file, or use --demo")
     if not args.themes:
         local = Path("themes.json")
-        args.themes = str(local if local.exists() else ROOT / "config" / "themes.template.json")
+        if local.exists():
+            args.themes = str(local)
+        else:
+            args.themes = str(ROOT / "config" / "themes.template.json")
+            print("No themes.json in this folder, so the starter themes are used.",
+                  file=sys.stderr)
     args.out = args.out or "out/report.md"
-    args.untagged = args.untagged or "out/untagged.csv"
+    args.untagged = args.untagged or str(Path(args.out).parent / "untagged.csv")
     return args
 
 

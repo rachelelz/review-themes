@@ -9,12 +9,16 @@ Turn a review export into a short, honest list of what customers complain about 
 
 The script does the counting. You do the reading and the writing. Every number in your summary must come from the script output.
 
+## Where things live
+
+`<skill>` means the folder this SKILL.md is in, for example `~/.claude/skills/review-themes`. Run every command from the user's own data folder, not from `<skill>`. The CSV, `themes.json`, `report.md` and `out/` all live in that data folder.
+
 ## Steps
 
 1. **Get the data.** Ask the user for a CSV export. Any of these columns work: review text (`text`, `review`, `body`, `comment`, `content`), `rating` or `stars`, `date` or `created_at`, `source` or `platform`. Only the text column is required. Several files can be passed at once. If the column names are unusual, use `--text-col`, `--rating-col`, `--date-col` or `--source-col`.
-2. **Set up the themes.** If there is no `themes.json` in the working folder, copy `config/themes.template.json` to `themes.json`. Tell the user they can edit it.
-3. **Run the script** from the folder that holds this file:
-   `python3 scripts/themes.py reviews.csv --themes themes.json`
+2. **Set up the themes.** If there is no `themes.json` in the data folder, copy the template: `cp <skill>/config/themes.template.json themes.json`. Tell the user they can edit it.
+3. **Run the script** from the data folder:
+   `python3 <skill>/scripts/themes.py reviews.csv --themes themes.json`
    It writes `out/report.md` and `out/untagged.csv`. Add `--recent-days 14` or another number to change what counts as recent. If the script prints an error, show it to the user in plain words and fix the cause (usually a column name).
 4. **Look at what the themes missed.** Read `out/untagged.csv`. These are negative reviews that matched no theme. Group them by what they are about. Propose new themes, or new keywords for existing themes. Show the proposal to the user as a short list. Add to `themes.json` only after the user says yes.
 5. **Run it again** after any change to `themes.json`. Check that the untagged count dropped.

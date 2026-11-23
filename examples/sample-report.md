@@ -6,7 +6,7 @@ Fix this first: **Billing and refunds**. 25 reviews mention it, 13 in the last 3
 - Reviews read: 211 (8 duplicates removed)
 - Dates: 2026-05-25 to 2026-11-19 (12 reviews have no date)
 - Negative reviews: 147
-- Negative reviews that matched no theme: 17 (see untagged.csv)
+- Negative reviews that matched no theme: 17 (see out/untagged.csv)
 
 ## Themes
 

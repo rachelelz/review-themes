@@ -2,6 +2,8 @@
 import csv
 import io
 import json
+import os
+import re
 import sys
 import tempfile
 import unittest
@@ -238,6 +240,43 @@ class OutputTests(unittest.TestCase):
             written = list(csv.DictReader(handle))
         self.assertEqual([r["text"] for r in written], ["Tastes burnt and far too dark for me."])
 
+    def test_untagged_goes_next_to_the_report(self):
+        src = write_csv(self.tmp.name, "in.csv", ["rating", "review"],
+                        [[1, "Where is my cat picture?"]])
+        out = Path(self.tmp.name) / "other" / "r.md"
+        with redirect_stdout(io.StringIO()):
+            code = rt.main([str(src), "--themes", str(TEMPLATE), "--out", str(out)])
+        self.assertEqual(code, 0)
+        self.assertTrue((out.parent / "untagged.csv").exists())
+        self.assertIn("(see ", out.read_text(encoding="utf-8"))
+
+    def test_untagged_label_is_the_relative_path(self):
+        src = write_csv(self.tmp.name, "in.csv", ["rating", "review"],
+                        [[1, "Where is my cat picture?"]])
+        old = Path.cwd()
+        os.chdir(self.tmp.name)
+        try:
+            with redirect_stdout(io.StringIO()):
+                code = rt.main([str(src), "--themes", str(TEMPLATE), "--out", "other/r.md"])
+            report = (Path(self.tmp.name) / "other" / "r.md").read_text(encoding="utf-8")
+        finally:
+            os.chdir(old)
+        self.assertEqual(code, 0)
+        self.assertIn("(see other/untagged.csv)", report)
+        self.assertTrue((Path(self.tmp.name) / "other" / "untagged.csv").exists())
+
+    def test_unreadable_ratings_are_counted(self):
+        rows = [["2026-04-01", "abc", "I was charged twice."],
+                ["2026-04-02", "n/a", "App crashes on launch."],
+                ["2026-04-03", "", "Support never answered."],
+                ["2026-04-04", 4, "Nice and fast."]]
+        report, _ = self.run_cli(rows)
+        self.assertIn("2 ratings could not be read and were treated as missing.", report)
+
+    def test_one_unreadable_rating_reads_right(self):
+        report, _ = self.run_cli([["2026-04-01", "abc", "I was charged twice."]])
+        self.assertIn("1 rating could not be read and was treated as missing.", report)
+
     def test_small_sample_note(self):
         report, _ = self.run_cli([["2026-04-01", 1, "I was charged twice."]])
         self.assertIn("## Not enough data to say", report)
@@ -283,7 +322,8 @@ class DemoTests(unittest.TestCase):
                 rt.main([str(ROOT / "examples" / "reviews.example.csv"), "--themes", str(TEMPLATE),
                          "--out", str(out), "--untagged", str(Path(tmp) / "u.csv")])
             fresh = out.read_text(encoding="utf-8")
-        self.assertEqual(sample, fresh)
+        see = r"\(see [^)]*\)"   # the path depends on where untagged.csv went
+        self.assertEqual(re.sub(see, "(see X)", sample), re.sub(see, "(see X)", fresh))
 
     def test_example_data_has_no_emails(self):
         text = (ROOT / "examples" / "reviews.example.csv").read_text(encoding="utf-8")

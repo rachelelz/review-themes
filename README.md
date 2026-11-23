@@ -25,7 +25,7 @@ Fix this first: Billing and refunds. 25 reviews mention it, 13 in the last 30 da
 
 Reviews read: 211 (8 duplicates removed)
 Negative reviews: 147
-Negative reviews that matched no theme: 17 (see untagged.csv)
+Negative reviews that matched no theme: 17 (see out/untagged.csv)
 
 | Theme                 | Reviews | Avg rating | Last 30 days | Earlier, per 30 days | Trend   |
 | Slow performance      | 32      | 2.5        | 6            | 4.9                  | steady  |
@@ -42,8 +42,10 @@ Slow performance has the most reviews, but billing comes first: it went from abo
 3. Run it:
 
    ```bash
-   python3 scripts/themes.py reviews.csv --themes themes.json --out report.md
+   python3 scripts/themes.py reviews.csv --themes themes.json
    ```
+
+   The report goes to `out/report.md`, with the unmatched reviews next to it in `out/untagged.csv`.
 
 To use it as a Claude Code skill, clone it into your skills folder:
 
@@ -98,7 +100,7 @@ scripts/themes.py              read, de-duplicate, tag, count, rank, report
 config/themes.template.json    starter complaint themes to copy and edit
 examples/reviews.example.csv   219 made-up reviews
 examples/sample-report.md      the demo output
-tests/test_themes.py           34 offline tests: python3 -m unittest discover tests
+tests/test_themes.py           38 offline tests: python3 -m unittest discover tests
 ```
 
 ## License
