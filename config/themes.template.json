@@ -4,17 +4,17 @@
     "keywords: match from the start of a word, so 'crash' also finds 'crashed' and 'crashes'. End a word with $ to match the whole word only.",
     "negative_keywords: phrases that are a complaint on their own, like 'charged twice'.",
     "regex and negative_regex: optional regular expressions, same idea.",
-    "polarity: 'neutral' (default) means plain keywords only count when the sentence sounds negative or the rating is 3 or lower. 'negative' means plain keywords always count as complaints.",
-    "Words are matched in lowercase. A match with 'not', 'no' or 'never' just before it is ignored."
+    "polarity: 'neutral' (default) means plain keywords only count when the same part of the sentence has a negative word, like 'rude' or 'broken'. 'negative' means plain keywords always count as complaints.",
+    "Words are matched in lowercase. A match with 'not', 'no', 'never' or 'zero' just before it is ignored, except in reviews of 2 stars or less."
   ],
   "themes": {
     "Price and value": {
-      "keywords": ["price", "pricing", "cost", "fee", "fees", "value", "subscription cost"],
-      "negative_keywords": ["expensive", "overpriced", "pricey", "rip off", "ripoff", "not worth", "price hike", "price increase", "too much money", "went up in price"]
+      "keywords": ["price", "pricing", "cost", "fee", "fees", "value for money", "subscription cost"],
+      "negative_keywords": ["expensive", "overpriced", "pricey", "rip off", "ripoff", "not worth", "poor value", "bad value", "price hike", "price increase", "too much money", "went up in price", "price went up", "prices went up", "price keeps going up", "prices keep going up", "creeping up"]
     },
     "Billing and refunds": {
       "keywords": ["billing", "billed", "invoice", "charge", "charged", "payment", "refund", "credit card"],
-      "negative_keywords": ["double charge", "charged twice", "charged me twice", "charged again", "billed twice", "billed two times", "double billed", "overcharged", "duplicate charge", "second charge", "extra charge", "unexpected charge", "unauthorized charge", "wrong amount", "no refund", "never got a refund", "never got my refund"]
+      "negative_keywords": ["double charge", "charged twice", "charged me twice", "charged again", "charged me again", "took payment again", "took payment twice", "billed twice", "billed two times", "double billed", "overcharged", "duplicate charge", "second charge", "extra charge", "unexpected charge", "unauthorized charge", "wrong amount", "no refund", "never got a refund", "never got my refund"]
     },
     "Bugs and crashes": {
       "polarity": "negative",
@@ -31,11 +31,11 @@
     },
     "Customer support response": {
       "keywords": ["support", "customer service", "customer care", "help desk", "live chat", "chatbot", "agent", "get back to me", "email back"],
-      "negative_keywords": ["no reply", "no response", "never replied", "never responded", "never heard back", "didn't respond", "didn't reply", "didn't answer", "unanswered", "ignored", "still waiting for a", "days to reply", "days to respond", "days to answer", "weeks to reply", "weeks to respond", "on hold", "nobody answered", "no one answered"]
+      "negative_keywords": ["no reply", "no response", "never replied", "never responded", "never heard back", "not heard back", "haven't heard back", "not replied", "hasn't replied", "haven't replied", "not responded", "hasn't responded", "didn't respond", "didn't reply", "didn't answer", "unanswered", "ignored", "still waiting for a reply", "still waiting for an answer", "still waiting for a response", "days to reply", "days to respond", "days to answer", "weeks to reply", "weeks to respond", "on hold", "nobody answered", "no one answered"]
     },
     "Missing feature": {
       "keywords": ["feature request", "missing feature", "lacks", "lacking"],
-      "negative_keywords": ["wish", "please add", "would be nice", "would love to be able", "no way to", "no option to", "doesn't let me", "should add", "needs an option"]
+      "negative_keywords": ["wish i could", "wish it had", "wish it would", "wish there was", "wish there were", "wish they would", "wish you would", "please add", "would be nice", "would love to be able", "no way to", "no option to", "doesn't let me", "should add", "needs an option"]
     },
     "Onboarding and setup": {
       "keywords": ["setup", "set up", "onboarding", "tutorial", "getting started", "instructions"],
@@ -44,7 +44,7 @@
     },
     "Delivery and shipping": {
       "keywords": ["delivery", "shipping", "shipment", "courier", "carrier", "parcel", "tracking"],
-      "negative_keywords": ["arrived late", "came late", "was late", "were late", "delivered late", "days late", "weeks late", "arrived damaged", "arrived broken", "never arrived", "didn't arrive", "didn't show up", "lost in transit", "wrong address", "late delivery", "delayed", "left outside"],
+      "negative_keywords": ["arrived late", "came late", "was late", "were late", "delivered late", "day late", "days late", "weeks late", "arrived damaged", "arrived broken", "never arrived", "didn't arrive", "didn't show up", "lost in transit", "wrong address", "late delivery", "delayed", "left outside", "left it outside", "never got the box", "never got my box", "never got my order", "never got the package", "never got my package", "never received my order", "never received the box", "never received my box", "never received my package"],
       "regex": ["waited \\d+ (days|weeks)"]
     },
     "Product quality": {
@@ -53,7 +53,7 @@
     },
     "Cancellation difficulty": {
       "keywords": ["cancel", "cancellation", "unsubscribe", "auto-renew", "renewal", "end my subscription"],
-      "negative_keywords": ["can't cancel", "cannot cancel", "couldn't cancel", "could not cancel", "no clear way to end", "no clear way to cancel", "hard to cancel", "difficult to cancel", "impossible to cancel", "won't let me cancel", "no cancel button", "kept charging", "kept billing", "keeps charging", "still charging"]
+      "negative_keywords": ["can't cancel", "cannot cancel", "couldn't cancel", "could not cancel", "no clear way to end", "no clear way to cancel", "hard to cancel", "difficult to cancel", "impossible to cancel", "won't let me cancel", "no cancel button", "just to cancel", "kept charging", "kept billing", "keeps charging", "still charging"]
     }
   }
 }

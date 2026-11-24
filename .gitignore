@@ -1,6 +1,8 @@
+# Keep your own reviews in a folder outside this repo. These lines are a safety net.
+*.csv
+!examples/*.csv
+themes.json
 out/
 __pycache__/
 *.pyc
 .DS_Store
-report.md
-*.private.csv

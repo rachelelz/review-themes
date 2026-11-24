@@ -2,15 +2,12 @@ date,rating,source,reviewer,review
 ,5,Trustpilot,C.B.,Best beans I have had in years. The app is quick and easy to use.
 ,2,Trustpilot,P.W.,"Beans arrived stale, nothing like the roast date on the bag."
 ,2,Trustpilot,P.M.,Not worth the money after the last price increase. Error message every time I try to add a payment method.
-,2,Trustpilot,M.L.,My shipment was delayed and nobody told me. I work from home so it is easy to check.
 ,3,Google,M.N.,Customer service took four days to respond. The password reset link expired before I could use it.
 ,3,Trustpilot,B.D.,"Sour and thin, not for me."
 ,2,App Store,E.C.,"The tracking link never updated, and the box came three days late. Third time this year."
 ,3,Trustpilot,S.G.,"Slow, slow, slow. The spinner just keeps turning. Used to be quicker."
-,3,Trustpilot,J.F.,  Opening the dashboard takes forever on wifi. Same on my tablet  
 ,1,Trustpilot,K.H.,I could not cancel from the app and had to email.
 ,2,Google,R.V.,"Delivery was a mess this month, nothing came on the day promised. Beans were fine once they came."
-,4,Trustpilot,L.T.,I look forward to the box every month. The app is quick and easy to use.
 2026-11-19,5,App Store,R.G.,"Great beans, simple plan. Got a refund within a day, no questions asked."
 2026-11-18,2,Trustpilot,A.N.,Opening the dashboard takes forever on wifi. Please speed it up.
 2026-11-18,5,Trustpilot,E.L.,The app is not slow at all.
@@ -35,7 +32,7 @@ date,rating,source,reviewer,review
 2026-11-08,2,Trustpilot,H.W.,Not what I expected from the photos.
 2026-11-07,5,Trustpilot,L.K.,The medium roast is perfect for my pour over. Customer service answered within an hour.
 2026-11-07,3,Trustpilot,D.D.,The coffee is great but the price keeps creeping up.
-2026-11-07,5,Trustpilot,A.M.,The medium roast is perfect for my pour over. Customer service answered within an hour.
+2026-11-07,5,Trustpilot,L.K.,The medium roast is perfect for my pour over. Customer service answered within an hour.
 2026-11-06,1,App Store,K.K.,Tried to cancel and could not find the button anywhere.
 2026-11-05,1,Trustpilot,G.G.,Duplicate charge on my card this month.
 2026-11-04,1,Trustpilot,M.V.,My card was billed two times and the second payment is still pending. Please fix it.
@@ -49,14 +46,14 @@ date,rating,source,reviewer,review
 2026-10-28,1,App Store,J.T.,"Slow, slow, slow. The spinner just keeps turning. It is a minor thing but it adds up."
 2026-10-28,2,App Store,M.D.,Quality control has slipped lately. Two of my last three bags were flat.
 2026-10-27,1,Trustpilot,N.L.,Delivery delayed twice this month.
-2026-10-27,1,Trustpilot,J.N.,Delivery delayed twice this month.
+2026-10-27,1,Trustpilot,N.L.,Delivery delayed twice this month.
 2026-10-25,4,Trustpilot,M.B.,No option to change the grind size once the order is placed.
 2026-10-24,1,Trustpilot,T.C.,"The invoice shows the wrong amount, higher than my plan. Please fix it. Love the beans though."
 2026-10-23,5,Trustpilot,S.B.,I look forward to the box every month. Delivery has been reliable since I joined.
 2026-10-23,3,Trustpilot,H.D.,The coffee was just average.
 2026-10-22,4,Google,H.L.,Delivery has been reliable since I joined. Delivery arrived a day early.
 2026-10-22,4,Trustpilot,L.V.,The app is smooth and the tracking page is helpful. Never had a crash or a bug.
-2026-10-22,4,Trustpilot,K.S.,The app is smooth and the tracking page is helpful. Never had a crash or a bug.
+2026-10-22,4,Trustpilot,L.V.,The app is smooth and the tracking page is helpful. Never had a crash or a bug.
 2026-10-20,3,Trustpilot,F.J.,Laggy on both my phone and my laptop. The coffee is good though.
 2026-10-19,2,Google,S.L.,Website lags constantly when I scroll my plan. The coffee is good though. Love the beans though.
 2026-10-18,1,Trustpilot,D.S.,I was overcharged by the full price of a box. I checked my bank app to be sure.
@@ -119,6 +116,7 @@ date,rating,source,reviewer,review
 2026-08-23,5,App Store,T.F.,My mornings are better with these beans. Delivery arrived a day early.
 2026-08-23,2,Trustpilot,D.N.,"Stale again. One of the bags was past its best before date. Nobody answered the chat, and the chatbot only repeats links."
 2026-08-22,3,Trustpilot,N.F.,Opening the dashboard takes forever on wifi. Same on my tablet.
+2026-08-22,3,Trustpilot,N.F.,  Opening the dashboard takes forever on wifi. Same on my tablet  
 2026-08-20,3,App Store,K.V.,"My box arrived late again, five days after the date I picked. I would like some honesty about dates."
 2026-08-20,2,Google,A.S.,I asked for a refund two weeks ago and nothing has happened. Not happy about this.
 2026-08-20,2,App Store,T.H.,Shipping is slow. I waited over a week. Beans were fine once they came.
@@ -142,7 +140,7 @@ date,rating,source,reviewer,review
 2026-08-11,4,Google,P.H.,"Great beans, simple plan. Login is simple and I have never been locked out. Tracking was accurate every time."
 2026-08-11,3,Trustpilot,F.G.,Foam inserts everywhere. Hard to recycle.
 2026-08-11,4,App Store,D.F.,"I look forward to the box every month. Billing is clear, no surprise charges."
-2026-08-09,2,Google,T.R.,"DELIVERY WAS A MESS THIS MONTH, NOTHING CAME ON THE DAY PROMISED. REALLY DISAPPOINTING."
+2026-08-09,2,Google,H.M.,"Delivery was a mess this month, nothing came on the day promised. Really disappointing."
 2026-08-09,2,Google,H.M.,"Delivery was a mess this month, nothing came on the day promised. Really disappointing."
 2026-08-08,1,App Store,R.P.,The box is huge for what is inside and all of it goes in the bin.
 2026-08-07,4,Google,P.B.,"Love this coffee club. Easy to skip a week or cancel. Billing is clear, no surprise charges."
@@ -169,7 +167,8 @@ Totally recommend."
 2026-07-14,4,Google,H.S.,My mornings are better with these beans. Easy to skip a week or cancel. The app is smooth and the tracking page is helpful.
 2026-07-12,3,App Store,T.T.,The password reset link expired before I could use it.
 2026-07-11,5,Google,B.M.,Tastes like a real cafe at home. Packaging is minimal and easy to recycle. Support was fast and sorted my question in one email.
-2026-07-11,5,Google,E.M.,Tastes like a real cafe at home. Packaging is minimal and easy to recycle. Support was fast and sorted my question in one email.
+2026-07-11,5,Google,B.M.,Tastes like a real cafe at home. Packaging is minimal and easy to recycle. Support was fast and sorted my question in one email.
+2026-07-11,2,Trustpilot,B.V.,My shipment was delayed and nobody told me. I work from home so it is easy to check.
 2026-07-11,2,Trustpilot,B.V.,My shipment was delayed and nobody told me. I work from home so it is easy to check.
 2026-07-10,5,Trustpilot,A.F.,Bought a gift subscription and my sister loved it. Customer service answered within an hour. Delivery has been reliable since I joined.
 2026-07-09,5,Google,K.H.,"Great flavor and the roast dates are always fresh. Billing is clear, no surprise charges."
@@ -185,6 +184,7 @@ Totally recommend."
 2026-07-01,5,App Store,A.W.,The support team was friendly and helpful.
 2026-07-01,4,App Store,N.L.,Easy to skip a week or cancel.
 2026-07-01,2,Trustpilot,L.M.,Tracking said delivered but I never got the box. I work from home so it is easy to check.
+2026-06-30,4,Trustpilot,T.T.,I look forward to the box every month. The app is quick and easy to use.
 2026-06-30,4,Trustpilot,T.T.,I look forward to the box every month. The app is quick and easy to use.
 2026-06-30,4,Trustpilot,M.V.,"Great beans, simple plan. Customer service answered within an hour."
 2026-06-30,2,Trustpilot,T.S.,Found a bug: the skip button does nothing.
